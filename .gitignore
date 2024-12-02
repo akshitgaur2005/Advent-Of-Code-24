@@ -3,3 +3,5 @@
 
 # Rust specific temporary files
 **/*.rs.bk
+
+input.txt

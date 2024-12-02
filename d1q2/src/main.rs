@@ -1,8 +1,7 @@
-use std::fs;
+use std::{collections::HashMap, fs};
 
 fn main() {
-    println!("Hello, world!");
-    let contents = fs::read_to_string("./src/input.txt")
+    let contents = fs::read_to_string("./input.txt")
         .expect("Should have read the file");
     let mut arr1 = [0; 1000];
     let mut arr2 = [0; 1000];
@@ -13,10 +12,18 @@ fn main() {
     }
     arr1.sort();
     arr2.sort();
-    let mut total_sum = 0;
-    for (a1, a2) in arr1.iter().zip(arr2.iter()) {
-        let temp: i32 = a1 - a2;
-        total_sum += temp.abs();
+    let mut hash = HashMap::new();
+
+    for num in arr2.iter() {
+        let count = hash.entry(num).or_insert(0);
+        *count += 1;
     }
-    println!("{total_sum}");
+
+    let mut sim_score = 0;
+
+    for num in arr1.iter() {
+        sim_score += num * hash.get(num).copied().unwrap_or(0);
+    }
+
+    println!("{sim_score}");
 }
