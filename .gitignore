@@ -1,0 +1,5 @@
+# Ignore all Rust project target directories
+**/target/
+
+# Rust specific temporary files
+**/*.rs.bk
